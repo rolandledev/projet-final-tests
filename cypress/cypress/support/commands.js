@@ -32,7 +32,7 @@ Cypress.Commands.add('login', () => {
             // Saisie de l'email et continuer
             cy.get('[aria-describedby="username-uid2-helper"]').should('exist').type(user.email);
             cy.get('#login-submit').click();
-            cy.wait(1000);
+            cy.wait(3000);
             // Saisie du mot de passe
             cy.get('[aria-describedby="password-uid3-helper"]').should('be.visible').type(user.password);
             cy.get('#login-submit').click();
