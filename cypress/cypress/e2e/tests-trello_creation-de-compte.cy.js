@@ -1,9 +1,9 @@
 describe('creation de compte sur Trello', () => {
-  it('creation de compte', () => {
+  it('creation de compte avec succès', () => {
 
     let email = 'joe.lateuf' + Date.now() + '@gmail.com';
     
-    // Connexion à trello
+    // Connexion à trello / SMOKE TEST
     cy.visit('https://trello.com/');
     cy.wait(1000);
     cy.get('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_logo"]').should('be.visible');
@@ -28,4 +28,7 @@ describe('creation de compte sur Trello', () => {
 
 
   })
+
+  //TODO: cas de tests non-passants
+  
 })
