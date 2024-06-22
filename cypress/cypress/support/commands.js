@@ -47,6 +47,12 @@ Cypress.Commands.add('login', () => {
         cy.url().should('contain', 'boards');
     });
 });
+
+// Commande d'ouverture du premier tableau tableau trello de la liste
+Cypress.Commands.add('openFirstBoard', () => {
+    cy.get('ul.boards-page-board-section-list').find('li').contains('Projet').first().click();
+    cy.wait(1000);
+});
 //
 //
 // -- This is a child command --
