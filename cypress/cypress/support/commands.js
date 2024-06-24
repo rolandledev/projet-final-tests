@@ -53,6 +53,13 @@ Cypress.Commands.add('openFirstBoard', () => {
     cy.get('ul.boards-page-board-section-list').find('li').contains('Projet').first().click();
     cy.wait(1000);
 });
+
+// Commande d'ouverture du tableau du projet
+Cypress.Commands.add('openProjectBoard', () => {
+    cy.fixture('connexion').then( user => {
+        cy.get('.board-tile').contains(user.nomTableau).click();
+    });
+});
 //
 //
 // -- This is a child command --
