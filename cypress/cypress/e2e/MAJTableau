@@ -1,0 +1,14 @@
+describe('Mettre à jour un tableau', () => {
+    beforeEach(() => {
+        cy.smokeTest();
+        cy.login();
+    });
+
+    it ('Mettre à jour un tableau', () => {
+
+        // Choix du premier tableau de la liste
+        
+        
+
+    });
+});
