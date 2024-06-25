@@ -10,5 +10,6 @@ describe('template de test', () => {
     it('mon scénario de test', () => {
         // Ouvre le tableau du projet
         cy.openProjectBoard();
+        
     });
 });
