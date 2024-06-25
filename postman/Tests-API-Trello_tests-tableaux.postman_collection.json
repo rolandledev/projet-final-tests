@@ -1,0 +1,512 @@
+{
+	"info": {
+		"_postman_id": "0d7b2750-8272-45cb-86b8-2861c133b4f4",
+		"name": "Tests-API-Trello_tests-tableaux",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24485618"
+	},
+	"item": [
+		{
+			"name": "creer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    if (pm.expect(pm.response.code).eq(200)) {\r",
+							"        pm.collectionVariables.set(\"boardId\", pm.response.json()['id']);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/?name={{boardName}}&key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Board name is \"BoardByApi\"', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get('boardName'));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mettre-a-jour-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('desc is equals to boardDescription variable in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['desc']).equals(pm.collectionVariables.get(\"boardDescription\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}&desc={{boardDescription}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "desc",
+							"value": "{{boardDescription}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer-une-liste-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.expect(pm.response.code).eq(200)) {\r",
+							"    pm.collectionVariables.set(\"boardCreatedListId\", pm.response.json()['id']);\r",
+							"}\r",
+							"\r",
+							"pm.test('newly created list name is equals to boardListToCreateName variable in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get(\"boardListToCreateName\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/lists?key={{apiKey}}&token={{apiToken}}&name={{boardListToCreateName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{boardListToCreateName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-les-listes-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/lists?key={{apiKey}}&token={{apiToken}}&name={{boardListToCreateName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{boardListToCreateName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer-une-carte-dans-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"    pm.collectionVariables.set(\"cardCreatedId\", pm.response.json()['id']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-une-carte-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('card id equals cardCreatedId variable set in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['id']).equals(pm.collectionVariables.get(\"cardCreatedId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/cards/{{cardCreatedId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"cards",
+						"{{cardCreatedId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-toutes-les-cartes-ouvertes-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/cards?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": "7e313bc664343d7db772adcea035d1e4",
+			"type": "string"
+		},
+		{
+			"key": "apiToken",
+			"value": "ATTA0f70117cbafa578a85b3a369f479c15bf0ff6a713c206ad0c41f64cbca531d26BBB23A18",
+			"type": "string"
+		},
+		{
+			"key": "boardId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://api.trello.com/1",
+			"type": "string"
+		},
+		{
+			"key": "boardName",
+			"value": "BoardByApi",
+			"type": "string"
+		},
+		{
+			"key": "boardDescription",
+			"value": "maj_nouvelle_description",
+			"type": "string"
+		},
+		{
+			"key": "boardListToCreateName",
+			"value": "nouvelle_liste_dans_tableau",
+			"type": "string"
+		},
+		{
+			"key": "boardCreatedListId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cardCreatedId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
