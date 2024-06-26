@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "0d7b2750-8272-45cb-86b8-2861c133b4f4",
+		"_postman_id": "696f98fd-e42b-4049-adf7-30b879786f3c",
 		"name": "Tests-API-Trello_tests-tableaux",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24485618"
+		"_exporter_id": "36567410",
+		"_collection_link": "https://patco8.postman.co/workspace/projet-final-gp4~00dfa9ae-c88b-4391-8b35-591bc747d740/collection/34658299-696f98fd-e42b-4049-adf7-30b879786f3c?action=share&source=collection_link&creator=36567410"
 	},
 	"item": [
 		{
@@ -723,6 +724,223 @@
 						{
 							"key": "value",
 							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer une nouvelle carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('idList = idList enregistré', () => {\r",
+							"    pm.expect(pm.response.json()[\"idList\"]).eq(pm.collectionVariables.get(\"boardCreatedListId\"));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer une carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/667be8d87b143295cdbcfc70?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}&id={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"667be8d87b143295cdbcfc70"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						},
+						{
+							"key": "id",
+							"value": "{{cardCreatedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifier-une-carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('New name equals variable \"listNameUpdated\" in collection', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get(\"listNameUpdated\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idCard={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idCard",
+							"value": "{{cardCreatedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer une carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.expect(pm.response.code).eq(400);    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/667c1ea4da1d339b9d6df968?key={{apiKey}}&token={{apiToken}}&idCard={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"667c1ea4da1d339b9d6df968"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idCard",
+							"value": "{{cardCreatedId}}"
 						}
 					]
 				}
