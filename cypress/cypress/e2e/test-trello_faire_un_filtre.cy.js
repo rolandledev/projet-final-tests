@@ -16,6 +16,6 @@ describe('template de test', () => {
         cy.wait(5000);
         //Cocher une étiquette
         cy.get('body > div.atlaskit-portal-container > div:nth-child(2) > section > div > div:nth-child(6) > ul > li:nth-child(4) > label > span.faR06patL_ldVW.andWTR_XxIdoiY > div > span').click();
-        
+     
     });
 });
