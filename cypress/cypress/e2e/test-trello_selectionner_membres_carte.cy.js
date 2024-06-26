@@ -7,7 +7,7 @@ describe('template de test', () => {
     });
 
 
-    it('mon scénario de test', () => {
+    it('Sélectionner un membre', () => {
         // Ouvre le tableau du projet
         cy.openProjectBoard();
 
