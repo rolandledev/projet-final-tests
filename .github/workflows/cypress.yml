@@ -12,9 +12,6 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        working-directory: cypress
-        run: npm install 
 
       - name: Setup French Locale
         run: |
@@ -26,9 +23,8 @@ jobs:
       - name: Verify Locale
         run: locale
 
-      - name: Run e2e:workshop
-        working-directory: cypress
-        run: npx cypress run --spec "cypress/cypress/e2e/test-trello_faire_un_filtre.cy.js"
+      - name: execute cypress tests
+        uses: cypress-io/github-action@v6
         env:
           LANG: fr_FR.UTF-8
           LC_ALL: fr_FR.UTF-8
