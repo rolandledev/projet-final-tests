@@ -1,0 +1,1082 @@
+{
+	"info": {
+		"_postman_id": "696f98fd-e42b-4049-adf7-30b879786f3c",
+		"name": "Tests-API-Trello_tests-tableaux",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36567410",
+		"_collection_link": "https://patco8.postman.co/workspace/projet-final-gp4~00dfa9ae-c88b-4391-8b35-591bc747d740/collection/34658299-696f98fd-e42b-4049-adf7-30b879786f3c?action=share&source=collection_link&creator=36567410"
+	},
+	"item": [
+		{
+			"name": "creer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    if (pm.expect(pm.response.code).eq(200)) {\r",
+							"        pm.collectionVariables.set(\"boardId\", pm.response.json()['id']);\r",
+							"    }\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/?name={{boardName}}&key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Board name is \"BoardByApi\"', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get('boardName'));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mettre-a-jour-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('desc is equals to boardDescription variable in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['desc']).equals(pm.collectionVariables.get(\"boardDescription\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}&desc={{boardDescription}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "desc",
+							"value": "{{boardDescription}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer-une-liste-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.expect(pm.response.code).eq(200)) {\r",
+							"    pm.collectionVariables.set(\"boardCreatedListId\", pm.response.json()['id']);\r",
+							"}\r",
+							"\r",
+							"pm.test('newly created list name is equals to boardListToCreateName variable in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get(\"boardListToCreateName\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/lists?key={{apiKey}}&token={{apiToken}}&name={{boardListToCreateName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{boardListToCreateName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-les-listes-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/lists?key={{apiKey}}&token={{apiToken}}&name={{boardListToCreateName}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{boardListToCreateName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer-une-carte-dans-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"    pm.collectionVariables.set(\"cardCreatedId\", pm.response.json()['id']);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-une-carte-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('card id equals cardCreatedId variable set in Collection', () => {\r",
+							"    pm.expect(pm.response.json()['id']).equals(pm.collectionVariables.get(\"cardCreatedId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/cards/{{cardCreatedId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"cards",
+						"{{cardCreatedId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-toutes-les-cartes-ouvertes-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}/cards?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "creer-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/?key={{apiKey}}&token={{apiToken}}&name={{listName}}&idBoard={{boardId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						""
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{listName}}"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{boardId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifier-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('New name equals variable \"listNameUpdated\" in collection', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get(\"listNameUpdated\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}?key={{apiKey}}&token={{apiToken}}&name={{listNameUpdated}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{listNameUpdated}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-le-tableau-auquel-appartient-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('Board id should match with variable \"boardId\" in collection', () => {\r",
+							"    pm.expect(pm.response.json()[\"id\"]).equals(pm.collectionVariables.get(\"boardId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}/board?key={{apiKey}}&token={{apiToken}}&name={{listNameUpdated}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}",
+						"board"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{listNameUpdated}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperer-les-cartes-d-une-liste",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('First card id equals cadCreatedId registered in collection', () => {\r",
+							"    pm.expect(pm.response.json()[0][\"id\"]).equals(pm.collectionVariables.get(\"cardCreatedId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}/cards?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deplacer-une-liste-dans-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('new board id equals boardId registered in collection', () => {\r",
+							"    pm.expect(pm.response.json()[\"_value\"]).eq(pm.collectionVariables.get(\"boardId\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}/idBoard?key={{apiKey}}&token={{apiToken}}&value={{boardId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}",
+						"idBoard"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "value",
+							"value": "{{boardId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deplacer-une-liste-dans-un-tableau Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('closed in json is set to true', () => {\r",
+							"    pm.expect(pm.response.json()[\"closed\"]).eq(true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{boardCreatedListId}}/closed?key={{apiKey}}&token={{apiToken}}&value=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{boardCreatedListId}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer une nouvelle carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('idList = idList enregistré', () => {\r",
+							"    pm.expect(pm.response.json()[\"idList\"]).eq(pm.collectionVariables.get(\"boardCreatedListId\"));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer une carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/667be8d87b143295cdbcfc70?key={{apiKey}}&token={{apiToken}}&idList={{boardCreatedListId}}&id={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"667be8d87b143295cdbcfc70"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{boardCreatedListId}}"
+						},
+						{
+							"key": "id",
+							"value": "{{cardCreatedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifier-une-carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);    \r",
+							"});\r",
+							"\r",
+							"pm.test('New name equals variable \"listNameUpdated\" in collection', () => {\r",
+							"    pm.expect(pm.response.json()['name']).equals(pm.collectionVariables.get(\"listNameUpdated\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?key={{apiKey}}&token={{apiToken}}&idCard={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idCard",
+							"value": "{{cardCreatedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer une carte",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 400', () => {\r",
+							"    pm.expect(pm.response.code).eq(400);    \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/667c1ea4da1d339b9d6df968?key={{apiKey}}&token={{apiToken}}&idCard={{cardCreatedId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"667c1ea4da1d339b9d6df968"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						},
+						{
+							"key": "idCard",
+							"value": "{{cardCreatedId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer-un-tableau",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', () => {\r",
+							"    pm.expect(pm.response.code).eq(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardId}}?key={{apiKey}}&token={{apiToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardId}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{apiKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{apiToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": "7e313bc664343d7db772adcea035d1e4",
+			"type": "string"
+		},
+		{
+			"key": "apiToken",
+			"value": "ATTA0f70117cbafa578a85b3a369f479c15bf0ff6a713c206ad0c41f64cbca531d26BBB23A18",
+			"type": "string"
+		},
+		{
+			"key": "boardId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "https://api.trello.com/1",
+			"type": "string"
+		},
+		{
+			"key": "boardName",
+			"value": "BoardByApi",
+			"type": "string"
+		},
+		{
+			"key": "boardDescription",
+			"value": "maj_nouvelle_description",
+			"type": "string"
+		},
+		{
+			"key": "boardListToCreateName",
+			"value": "nouvelle_liste_dans_tableau",
+			"type": "string"
+		},
+		{
+			"key": "boardCreatedListId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cardCreatedId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "listName",
+			"value": "nouvelle_liste",
+			"type": "string"
+		},
+		{
+			"key": "listNameUpdated",
+			"value": "maj_nouvelle_liste",
+			"type": "string"
+		}
+	]
+}
