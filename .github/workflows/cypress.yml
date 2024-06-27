@@ -27,6 +27,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with: 
           working-directory: cypress
+          spec: cypress/e2e/test-trello_faire_un_filtre.cy.js
 
         env:
           LANG: fr_FR.UTF-8
