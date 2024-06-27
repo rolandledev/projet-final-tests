@@ -25,6 +25,9 @@ jobs:
 
       - name: execute cypress tests
         uses: cypress-io/github-action@v6
+        with: 
+          working-directory: cypress
+
         env:
           LANG: fr_FR.UTF-8
           LC_ALL: fr_FR.UTF-8
