@@ -16,15 +16,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+
     - name: Install newman
       run: npm install -g newman newman-reporter-htmlextra
 
     - name: Verify collection.json exists
-      run: ls -la collection.json
+      run: ls -la postman\collection.json
 
     - name: Run Postman Collection
       run: |
-        newman run collection.json --reporters=cli,htmlextra --reporter-htmlextra-export newman/report.html
+        newman run postman\collection.json --reporters=cli,htmlextra --reporter-htmlextra-export newman/report.html
 
     - name: Report
       uses: actions/upload-artifact@v4
