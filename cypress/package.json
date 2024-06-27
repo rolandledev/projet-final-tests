@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+
   "scripts": {
-    "cy:open": "cypress open"
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open",
+    "posttest": "cypress-mochawesome-reporter"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
